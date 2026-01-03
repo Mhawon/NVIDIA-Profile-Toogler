@@ -2,7 +2,7 @@
 
 NVIDIA Profile Toogler is a utility for Windows that allows you to create, manage, and quickly switch between different color profiles for your NVIDIA GPU using global hotkeys.
 
-![image](https://github.com/Mhawon/NVIDIA-Profile-Toogler/assets/62069239/651e065e-2b47-495c-a5b7-5a13349949d0)
+![image](https://i.imgur.com/14OLIsh.png)
 
 
 ## ✨ Features
