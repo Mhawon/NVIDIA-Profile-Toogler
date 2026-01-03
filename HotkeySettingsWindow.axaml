@@ -1,0 +1,132 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:NVIDIA_Profil_Toogler"
+        mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="450"
+        x:Class="NVIDIA_Profil_Toogler.HotkeySettingsWindow"
+        Title="Hotkey Settings"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Width="550"
+        Height="450">
+
+  <Grid>
+    <!-- Main List View -->
+    <Border Name="ListContent" Background="#FF282828" BorderBrush="#FF505050" BorderThickness="1" CornerRadius="8" Padding="15" Margin="10">
+        <DockPanel>
+            <!-- Bottom Buttons -->
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,15,0,0">
+              <Button Name="SaveButton" Content="Save" />
+              <Button Name="CancelButton" Content="Cancel" />
+            </StackPanel>
+
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto" DockPanel.Dock="Top" Margin="0,0,0,10">
+                <TextBlock Text="Configured Hotkeys" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                    <Button Name="AddHotkeyButton" Content="➕" Padding="0" />
+                </StackPanel>
+            </Grid>
+
+            <!-- The ListBox -->
+            <ListBox Name="HotkeyListBox">
+              <ListBox.Styles>
+                  <Style Selector="ListBoxItem">
+                      <Setter Property="Template">
+                          <ControlTemplate>
+                              <Border Name="root" Background="#FF363636" CornerRadius="8" Padding="10" Margin="0,4" BorderBrush="#FF555555" BorderThickness="1">
+                                  <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                              </Border>
+                          </ControlTemplate>
+                      </Setter>
+                  </Style>
+                  <Style Selector="ListBoxItem:pointerover /template/ Border#root">
+                      <Setter Property="Background" Value="#FF4F4F4F"/>
+                  </Style>
+                  <Style Selector="ListBoxItem:selected /template/ Border#root">
+                      <Setter Property="BorderBrush" Value="Orange" />
+                  </Style>
+              </ListBox.Styles>
+              <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="models:HotkeyDisplayItem">
+                    <Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch">
+                        <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="5">
+                            <TextBlock Text="{Binding Binding.DisplayText}" FontWeight="Bold" Margin="0,0,0,5" />
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <Border Background="#FF444444" CornerRadius="4" Padding="6,3">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <TextBlock Text=" → " IsVisible="{Binding IsDirectSwitch}" />
+                                        <TextBlock Text="{Binding Profile1Name}" />
+                                        <TextBlock Text="↔" IsVisible="{Binding IsTwoProfileToggle}" />
+                                        <TextBlock Text="{Binding Profile2Name}" IsVisible="{Binding IsTwoProfileToggle}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#FF444444" CornerRadius="4" Padding="6,3" IsVisible="{Binding Binding.TargetDisplays.Count}">
+                                    <StackPanel Orientation="Horizontal" Spacing="3">
+                                        <TextBlock Text="🖥️" FontFamily="Segoe UI Emoji" />
+                                        <TextBlock Text="{Binding Binding.TargetDisplays.Count, StringFormat='{}{0} Displays'}" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Button Content="✏️" Tag="{Binding}" Click="EditHotkeyButton_Click" Padding="0"/>
+                            <Button Content="🗑️" Tag="{Binding}" Click="DeleteHotkeyButton_Click" Padding="0"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+    </Border>
+
+    <!-- Hotkey Editor Panel (Overlay) -->
+    <Border Name="HotkeyEditorPanel"
+            IsVisible="False"
+            Background="#FF282828" BorderBrush="#FF505050" BorderThickness="1" CornerRadius="8" Padding="15" Margin="10">
+      <StackPanel Spacing="10">
+        <TextBlock Text="Hotkey Details" FontSize="14" FontWeight="Bold" />
+        
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="5" ColumnSpacing="10">
+          <TextBlock Grid.Row="0" Grid.Column="0" Text="Hotkey Combination:" VerticalAlignment="Center" />
+          <TextBox Grid.Row="0" Grid.Column="1" Name="HotkeyInputTextBox" IsReadOnly="True" />
+          
+          <TextBlock Grid.Row="1" Grid.Column="0" Text="Logic Type:" VerticalAlignment="Center" />
+          <ComboBox Grid.Row="1" Grid.Column="1" Name="LogicTypeComboBox" />
+          
+          <TextBlock Grid.Row="2" Grid.Column="0" Text="Profile 1:" VerticalAlignment="Center" />
+          <ComboBox Grid.Row="2" Grid.Column="1" Name="Profile1ComboBox">
+            <ComboBox.ItemTemplate>
+              <DataTemplate x:DataType="models:Profile">
+                <TextBlock Text="{Binding Name}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+          
+          <TextBlock Grid.Row="3" Grid.Column="0" Text="Profile 2 (for Toggle):" VerticalAlignment="Center" />
+          <ComboBox Grid.Row="3" Grid.Column="1" Name="Profile2ComboBox" IsEnabled="False">
+            <ComboBox.ItemTemplate>
+              <DataTemplate x:DataType="models:Profile">
+                <TextBlock Text="{Binding Name}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+          <TextBlock Grid.Row="4" Grid.Column="0" Text="Target Displays:" VerticalAlignment="Center" />
+            <ListBox Grid.Row="4" Grid.Column="1" Name="DisplayListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:DisplayItem">
+                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,10,0,0">
+          <Button Name="SaveHotkeyButton" Content="Save Hotkey" />
+          <Button Name="CancelHotkeyEditButton" Content="Cancel" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+  </Grid>
+</Window>

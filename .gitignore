@@ -1,0 +1,19 @@
+# Dependencies
+/bin/
+/obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# Logs
+*.log
+AVALONIA_FATAL_ERROR.txt
+debug_log.txt
+
+# Backup files
+*.bak
+*.bqk

@@ -1,0 +1,26 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:NVIDIA_Profil_Toogler"
+             xmlns:ac="using:Avalonia.Controls"
+             x:Class="NVIDIA_Profil_Toogler.App"
+             RequestedThemeVariant="Dark">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <local:PercentageConverter x:Key="PercentageConverter" />
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+        <Style Selector="Window">
+            <Setter Property="Background" Value="#FF303030"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="MinWidth" Value="30"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Application.Styles>
+</Application>

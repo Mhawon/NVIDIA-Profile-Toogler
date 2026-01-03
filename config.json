@@ -1,0 +1,53 @@
+{
+  "Profiles": [
+    {
+      "Id": "272be09c-6c28-497a-8490-aeeeebda60d6",
+      "Name": "Default",
+      "Vibrance": 90,
+      "Brightness": 0.5,
+      "Contrast": 0.5,
+      "Gamma": 1,
+      "Summary": "\uD83C\uDF0890  \u2600\uFE0F0,50  \uD83C\uDF170,50  \u27281,00"
+    },
+    {
+      "Id": "2cba520f-26b7-4b8b-b187-87608afde384",
+      "Name": "Tarkov",
+      "Vibrance": 90,
+      "Brightness": 0.55,
+      "Contrast": 0.7,
+      "Gamma": 2.8,
+      "Summary": "\uD83C\uDF0890  \u2600\uFE0F0,55  \uD83C\uDF170,70  \u27282,80"
+    }
+  ],
+  "Hotkeys": [
+    {
+      "Id": "500cff5d-30c8-4200-8c9c-191f51c24560",
+      "Key": 92,
+      "Modifiers": 2,
+      "LogicType": 1,
+      "ProfileIds": [
+        "272be09c-6c28-497a-8490-aeeeebda60d6",
+        "2cba520f-26b7-4b8b-b187-87608afde384"
+      ],
+      "TargetDisplays": [],
+      "DisplayText": "Ctrl \u002B F3"
+    },
+    {
+      "Id": "507baca3-8be9-4c66-a6d5-d9cd66177dbd",
+      "Key": 95,
+      "Modifiers": 2,
+      "LogicType": 0,
+      "ProfileIds": [
+        "272be09c-6c28-497a-8490-aeeeebda60d6"
+      ],
+      "TargetDisplays": [],
+      "DisplayText": "Ctrl \u002B F6"
+    }
+  ],
+  "SelectedDisplays": [
+    "\\\\.\\DISPLAY1"
+  ],
+  "StartMinimized": true,
+  "StartWithWindows": false,
+  "HideOnClose": true
+}
